@@ -2,44 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daniel D’Souza – Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Daniel D’Souza — CS & Applied Math student portfolio: projects, research, resume, and contact.">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:title" content="Daniel D’Souza — Portfolio">
+  <meta property="og:description" content="Projects, research, resume, and contact">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cheesdandy.github.io/">
+  <meta property="og:image" content="assets/og-preview.png">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+
+  <title>Daniel D’Souza — Portfolio</title>
 </head>
 <body>
-  <header>
-    <h1>Daniel D’Souza</h1>
-    <p>lipsum yap</p>
+  <header class="site-header">
+    <a class="logo" href="index.html">DD</a>
+    <nav>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a class="btn" href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <main>
-    <section>
-      <h2>About Me</h2>
-      <p>I’m a student and aspiring researcher in CS & Applied Math, with interests in AI, algorithms, and systems.</p>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Hi, I'm <span class="accent">Daniel D’Souza</span>.</h1>
+        <p class="lead">CS & Applied Math student @ Stony Brook (Honors). I build reliable systems, research algorithms, and ship full‑stack apps.</p>
+        <div class="cta">
+          <a class="btn" href="projects.html">See projects</a>
+          <a class="btn-secondary" href="resume.html">View resume</a>
+        </div>
+        <ul class="meta">
+          <li>Interests: algorithms, systems, AI for good</li>
+          <li>Currently: Full‑Stack SWE Intern @ Henry Schein One</li>
+        </ul>
+      </div>
+      <div class="hero-media">
+        <img src="assets/profile.jpg" alt="Portrait of Daniel D’Souza" />
+      </div>
     </section>
 
-    <section>
-      <h2>Projects</h2>
-      <ul>
-        <li><b>FraudFinder</b> – AI tool to help elderly detect scams.</li>
-        <li><b>Center Distance Designer</b> – migrated legacy .NET tool to PHP/MySQL.</li>
-        <li><b>Research</b> – dynamic programming + algorithmic math problems.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Resume</h2>
-      <p><a href="resume.pdf" target="_blank">View my resume (PDF)</a></p>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <p>Email: <a href="dand54545@gmail.com">dand54545@gmail.com</a></p>
+    <section class="cards">
+      <article class="card">
+        <h3>FraudFinder (revamp)</h3>
+        <p>Prototyped AI assistant to help seniors spot phishing. Rebuilding with modern UX and explainable ML.</p>
+        <a class="link" href="projects.html#fraudfinder">Learn more</a>
+      </article>
+      <article class="card">
+        <h3>Center Distance Designer</h3>
+        <p>Migrated legacy .NET tool to .NET 8 / PHP & MySQL; improved reliability and deployment for engineering teams.</p>
+        <a class="link" href="projects.html#cdd">Learn more</a>
+      </article>
+      <article class="card">
+        <h3>Research: Dynamic Programming</h3>
+        <p>Explorations in algorithmic math (DP formulations, complexity) with faculty; write‑ups in LaTeX.</p>
+        <a class="link" href="projects.html#research">Learn more</a>
+      </article>
     </section>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Daniel D’Souza</p>
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Daniel D’Souza · <a href="mailto:your.email@example.com">your.email@example.com</a></p>
   </footer>
+  <script src="assets/script.js"></script>
+
 </body>
 </html>
