@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Daniel D’Souza — high school student portfolio: projects, resume, and contact.">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:title" content="Daniel D’Souza — Project">
+  <meta property="og:description" content="Project details">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cheesdandy.github.io/">
+  <meta property="og:image" content="assets/og-preview.png">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+
+  <title>FraudFinder — Daniel D’Souza</title>
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">DD</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a class="btn" href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+<main class="container">
+  <nav aria-label="breadcrumb" style="margin:8px 0 12px">
+    <a class="link" href="projects.html">&larr; Back to Projects</a>
+  </nav>
+
+  <section class="project">
+    <h1>FraudFinder — Helping Seniors Spot Phishing</h1>
+    <p class="stack">Stack (planned): Python, FastAPI, Next.js · ML: explainability, simple risk heuristics</p>
+    <p class="summary">AI-assisted tool that highlights red flags in emails and teaches safe habits with simple, step‑by‑step explanations.</p>
+
+    <div class="bullets">
+      <h3>Problem</h3>
+      <p>Email phishing targets seniors with confusing, deceptive patterns. Most tools give a verdict but not a clear, teachable explanation.</p>
+      <h3>Approach</h3>
+      <p>Design a walkthrough that shows where risk signals appear (sender, links, wording), score the message, and provide a short tutorial to prevent future mistakes.</p>
+      <h3>Impact</h3>
+      <p>Clear, teachable moments that increase awareness and reduce risky clicks in pilot tests with family/friends.</p>
+    </div>
+
+    <div class="links" style="margin-top:12px">
+      <a class="btn-secondary" href="#" aria-disabled="true">Repo (coming soon)</a>
+    </div>
+  </section>
+
+  <section class="project">
+    <h2>Gallery</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
+      <img src="assets/fraudfinder-1.jpg" alt="FraudFinder screenshot 1"/>
+<img src="assets/fraudfinder-2.jpg" alt="FraudFinder screenshot 2"/>
+    </div>
+  </section>
+</main>
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Daniel D’Souza · <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+  </footer>
+  <script src="assets/script.js"></script>
+
+</body>
+</html>
