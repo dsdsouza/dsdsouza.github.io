@@ -120,6 +120,46 @@ nav .btn{margin-left:16px}
   font-size: 0.95rem;
 }
 
+.resume-section {
+  margin: 36px 0;
+}
+
+.resume-item {
+  margin-bottom: 20px;
+}
+
+.resume-item h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.resume-item .date {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 4px 0;
+}
+
+.resume-item .summary {
+  margin: 6px 0 0;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.bullets {
+  line-height: 1.7;
+  margin: 10px 0;
+}
+
+.skills li {
+  margin: 6px 0;
+}
+
+.skills span {
+  font-weight: 600;
+  color: var(--accent);
+}
+
 
 .contact{
   display:grid;gap:12px;max-width:650px;background:rgba(15,23,42,.5);
