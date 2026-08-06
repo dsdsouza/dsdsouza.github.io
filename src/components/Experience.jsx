@@ -4,7 +4,7 @@ export default function Experience() {
   const experiences = [
     {
       company: "REWILD LONG ISLAND INCORPORATED",
-      role: "Volunteer — ReWild Software Dev Team (AI Team)",
+      role: "Intern — ReWild Software Dev Team (AI Team)",
       period: "Jul 2026 - Present",
       location: "Remote",
       description: "Designing and building a multi-lingual, conversational AI platform that provides localized native plant guidance and encourages community-driven ecological action."
