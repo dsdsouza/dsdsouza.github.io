@@ -57,9 +57,6 @@ export default function Hero() {
           <div className="w-10"></div>
         </div>
 
-      <p className="text-xl md:text-2xl text-slate-600 mb-8">
-        Computer Science Honors Student & Full-Stack Developer
-      </p>
 
         <div className="min-h-[70px] flex items-center text-xl md:text-3xl text-green-400 font-bold">
           <span className="mr-3 text-slate-500 select-none">&gt;</span>
@@ -67,6 +64,10 @@ export default function Hero() {
           <span className="animate-pulse ml-1 w-2.5 h-6 md:h-8 bg-green-400 inline-block"></span>
         </div>
       </div>
+
+      <p className="text-xl md:text-2xl text-slate-600 mb-8">
+        Computer Science Honors Student & Full-Stack Developer
+      </p>
 
       {/* Action Row: Responsive Terminal Trigger & Resume CTA */}
       <div className="flex flex-wrap items-center justify-center gap-4">

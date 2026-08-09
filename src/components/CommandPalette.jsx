@@ -86,7 +86,7 @@ export default function CommandPalette() {
           '  help           - Show this message',
           '  ls / dir       - List directory contents (Cyan = Folders, White = Files)',
           '  cd <dir>       - Change directory into a folder (e.g., "cd experience/")',
-          '  <file>         - Open a file or section (e.g., "experience" scrolls to section)',
+          '  open <file>         - Opens a page/section',
           '  clear          - Clear terminal output',
           '  exit           - Close the terminal'
         ];
@@ -146,34 +146,43 @@ export default function CommandPalette() {
       case '':
         break;
 
-      default:
-        // Handle file execution/opening explicitly
-        const currentItems = fileSystem[currentDir] || [];
-        const foundFile = currentItems.find(i => i.name === command && i.type === 'file');
+      case 'open':
+        if (!target) {
+          newOutput = ['Usage: open <file>'];
+          break;
+        }
 
-        if (foundFile) {
-          newOutput = [`Opening ${command}...`];
+        const openItems = fileSystem[currentDir] || [];
+        const fileToOpen = openItems.find(i => i.name === target && i.type === 'file');
+
+        if (fileToOpen) {
+          newOutput = [`Opening ${target}...`];
           setTimeout(() => {
             setIsOpen(false);
             if (currentDir === '~') {
               navigate('/');
               setTimeout(() => {
-                document.getElementById(command)?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
               }, 100);
             } else {
-              const routePath = currentDir.replace('~', '') + '/' + command;
+              const routePath = currentDir.replace('~', '') + '/' + target;
               navigate(routePath);
             }
           }, 300);
         } else {
-          // Check if user accidentally tried to cd without typing cd
-          const foundDir = currentItems.find(i => i.name === `${command}/` && i.type === 'dir');
-          if (foundDir) {
-            newOutput = [`Please use "cd ${command}/" to open this folder.`];
+          // Check if they accidentally tried to open a directory
+          const isDir = openItems.find(i => i.name === `${target}/` && i.type === 'dir');
+          if (isDir) {
+            newOutput = [`Cannot open a directory. Please use "cd ${target}/" instead.`];
           } else {
-            newOutput = [`Command not found: ${command}. Type "help" for instructions.`];
+            newOutput = [`File not found: ${target}. Type "ls" to see available files.`];
           }
         }
+        break;
+        
+      default:
+        newOutput = [`Command not found: ${command}. Type "help" for instructions.`];
+        break;
     }
 
     setHistory((prev) => [
