@@ -15,10 +15,10 @@ export default function Hero() {
       <div className="flex flex-wrap items-center justify-center gap-4">
         <div className="inline-flex items-center bg-slate-100 border border-slate-300 px-4 py-2 rounded-lg text-sm text-slate-700 shadow-sm">
           <span>Press</span>
-          <kbd className="bg-white border border-slate-300 px-2 py-0.5 rounded mx-1.5 font-mono text-xs shadow-inner">Ctrl</kbd>
+          <kbd className="bg-white border border-slate-300 px-2 py-0.5 rounded mx-1.5 font-mono text-xs shadow-inner">Ctrl or Cmd</kbd>
           <span>+</span>
           <kbd className="bg-white border border-slate-300 px-2 py-0.5 rounded mx-1.5 font-mono text-xs shadow-inner">K</kbd>
-          <span>to jump anywhere</span>
+          <span>to open terminal and jump anywhere</span>
         </div>
 
         <a 

@@ -24,8 +24,12 @@ import VolunteerSystem from './Projects/VolunteerSystem';
 export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans selection:bg-slate-900 selection:text-white">
+      {/* Navbar sits globally on all pages */}
       <Navbar />
-
+      
+      {/* CommandPalette sits globally so Ctrl+K / Cmd+K works everywhere */}
+      <CommandPalette />
+      
       {/* The Routes component handles switching pages */}
       <Routes>
         {/* The Main Portfolio Page */}
@@ -37,7 +41,6 @@ export default function App() {
             <Experience />
             <Projects />
             <Resume />
-            <CommandPalette />
           </main>
         } />
 
@@ -53,7 +56,7 @@ export default function App() {
       </Routes>
 
       <footer className="border-t border-slate-200 py-8 text-center text-sm text-slate-500">
-        <p>© {new Date().getFullYear()} Daniel D'Souza. Built for GitHub Pages.</p>
+        <p>© {new Date().getFullYear()} Daniel D'Souza.</p>
       </footer>
     </div>
   );

@@ -21,7 +21,7 @@ export default function CommandPalette() {
 
   const initialHistory = [
     { type: 'output', text: 'Welcome to the Portfolio Terminal v1.1.0' },
-    { type: 'output', text: '💡 Tip: Type "help" or use [TAB] to auto-complete directory paths/files.' },
+    { type: 'output', text: 'Tip: Type "help" or use [TAB] to auto-complete directory paths/files.' },
     { type: 'output', text: 'Type "ls" to see available files or sections in your current directory.' },
   ];
   
