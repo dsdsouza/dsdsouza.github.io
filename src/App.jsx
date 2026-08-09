@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Main Page Components
+import MobileTerminalTrigger from './components/MobileTerminalTrigger';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -25,13 +26,12 @@ import VolunteerSystem from './Projects/VolunteerSystem';
 export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans selection:bg-slate-900 selection:text-white">
-      {/* Navbar sits globally on all pages */}
+      {/* Globally accessible Jazz*/}
       <Navbar />
-      
-      {/* CommandPalette sits globally so Ctrl+K / Cmd+K works everywhere */}
       <CommandPalette />
+      <MobileTerminalTrigger />
       
-      {/* The Routes component handles switching pages */}
+      {/* Route page switching */}
       <Routes>
         {/* The Main Portfolio Page */}
         <Route path="/" element={

@@ -12,7 +12,6 @@ export default function CommandPalette() {
   const inputRef = useRef(null);
   const bottomRef = useRef(null);
 
-  // Simulated File System matching your portfolio structure
   const fileSystem = {
     '~': ['about', 'tech-stack', 'experience', 'projects', 'resume'],
     '~/experience': ['rewild-ai', 'rewild-volunteer', 'designatronics', 'rtx'],
@@ -27,7 +26,7 @@ export default function CommandPalette() {
   
   const [history, setHistory] = useState(initialHistory);
 
-  // Global Keydown Listener for Ctrl+K (Windows/Linux) and Cmd+K (Mac) on any page
+  // Global Keyboard Listener & Custom Open Event Listener for Mobile Button
   useEffect(() => {
     const handleGlobalKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -37,11 +36,18 @@ export default function CommandPalette() {
         setIsOpen(false);
       }
     };
+
+    const handleCustomOpen = () => setIsOpen(true);
+
     window.addEventListener('keydown', handleGlobalKeyDown);
-    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+    window.addEventListener('open-terminal', handleCustomOpen);
+
+    return () => {
+      window.removeEventListener('keydown', handleGlobalKeyDown);
+      window.removeEventListener('open-terminal', handleCustomOpen);
+    };
   }, [isOpen]);
 
-  // Keep input focused and scroll to bottom when opened or updated
   useEffect(() => {
     if (isOpen) {
       inputRef.current?.focus();
@@ -63,7 +69,6 @@ export default function CommandPalette() {
           '  help           - Show this message',
           '  ls / dir       - List directory contents',
           '  cd <dir>       - Change directory (e.g., "cd experience")',
-          '  tab [key]      - Press TAB to auto-complete file names',
           '  clear          - Clear terminal output',
           '  exit           - Close the terminal'
         ];
@@ -136,7 +141,7 @@ export default function CommandPalette() {
       handleCommand(input);
       setInput('');
     } else if (e.key === 'Tab') {
-      e.preventDefault(); // Prevent standard tab shifting
+      e.preventDefault();
       
       const args = input.trim().split(' ');
       const cmd = args[0] || 'cd';
@@ -175,10 +180,9 @@ export default function CommandPalette() {
           inputRef.current?.focus();
         }}
       >
-        {/* Terminal Header with Functional Window Buttons */}
+        {/* Terminal Header */}
         <div className="bg-slate-800 px-4 py-2.5 border-b border-slate-700 flex items-center justify-between select-none">
           <div className="flex items-center gap-2">
-            {/* Red Button: Close */}
             <button 
               onClick={() => setIsOpen(false)}
               className="w-3.5 h-3.5 rounded-full bg-red-500 hover:bg-red-600 transition flex items-center justify-center group focus:outline-none"
@@ -186,7 +190,6 @@ export default function CommandPalette() {
             >
               <span className="text-[9px] text-red-950 opacity-0 group-hover:opacity-100 font-bold leading-none">×</span>
             </button>
-            {/* Yellow Button: Minimize / Hide */}
             <button 
               onClick={() => setIsOpen(false)}
               className="w-3.5 h-3.5 rounded-full bg-yellow-500 hover:bg-yellow-600 transition flex items-center justify-center group focus:outline-none"
@@ -194,7 +197,6 @@ export default function CommandPalette() {
             >
               <span className="text-[9px] text-yellow-950 opacity-0 group-hover:opacity-100 font-bold leading-none">-</span>
             </button>
-            {/* Green Button: Maximize / Restore */}
             <button 
               onClick={() => setIsMaximized(!isMaximized)}
               className="w-3.5 h-3.5 rounded-full bg-green-500 hover:bg-green-600 transition flex items-center justify-center group focus:outline-none"
@@ -219,7 +221,6 @@ export default function CommandPalette() {
             </div>
           ))}
           
-          {/* Active Input Line */}
           <div className="flex items-center text-green-400 mt-2">
             <span className="mr-2 whitespace-nowrap">visitor@portfolio:{currentDir}$</span>
             <input
