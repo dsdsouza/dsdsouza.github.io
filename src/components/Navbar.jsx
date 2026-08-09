@@ -8,7 +8,7 @@ export default function Navbar() {
         <a href="https://github.com/dsdsouza" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
           <FaGithub className="text-lg" /> GitHub
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
+        <a href="https://www.linkedin.com/in/danielsdsouza/" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
           <FaLinkedin className="text-lg" /> LinkedIn
         </a>
         <a href="mailto:daniel@example.com" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
