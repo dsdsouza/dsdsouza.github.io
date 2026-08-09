@@ -37,7 +37,7 @@ export default function CommandPalette() {
 
   const initialHistory = [
     { type: 'output', text: 'Welcome to the Portfolio Terminal v1.3.0' },
-    { type: 'output', text: 'Type "ls" or "dir" to list contents. Blue items ending with "/" are folders (use "cd"). White items are files/sections.' },
+    { type: 'output', text: 'Type "ls" or "dir" to list contents. Type "open <file>" to open a section. Blue items ending with "/" are folders (use "cd"). White items are files/sections.' },
     { type: 'output', text: 'Tip: Type "help" or use [TAB] to auto-complete directory paths/files.' },
   ];
   
@@ -86,7 +86,7 @@ export default function CommandPalette() {
           '  help           - Show this message',
           '  ls / dir       - List directory contents (Cyan = Folders, White = Files)',
           '  cd <dir>       - Change directory into a folder (e.g., "cd experience/")',
-          '  open <file>         - Opens a page/section',
+          '  open <file>    - Opens a page/section',
           '  clear          - Clear terminal output',
           '  exit           - Close the terminal'
         ];
@@ -179,7 +179,7 @@ export default function CommandPalette() {
           }
         }
         break;
-        
+
       default:
         newOutput = [`Command not found: ${command}. Type "help" for instructions.`];
         break;
