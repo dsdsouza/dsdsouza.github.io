@@ -44,14 +44,7 @@ export default function Hero() {
 
   return (
     <section className="min-h-[80vh] flex flex-col justify-center items-center text-center px-4 pt-20">
-      
-      <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-4">
-        Hi, I'm Daniel D'Souza
-      </h1>
-      <p className="text-xl md:text-2xl text-slate-600 mb-8">
-        Computer Science Honors Student & Full-Stack Developer
-      </p>
-      
+
       {/* Terminal Style Box Wrapper */}
       <div className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl p-6 md:p-10 max-w-3xl w-full text-left font-mono mb-8">
         <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-800">
@@ -63,6 +56,10 @@ export default function Hero() {
           <span className="text-xs text-slate-400">bash — daniel@portfolio:~</span>
           <div className="w-10"></div>
         </div>
+
+      <p className="text-xl md:text-2xl text-slate-600 mb-8">
+        Computer Science Honors Student & Full-Stack Developer
+      </p>
 
         <div className="min-h-[70px] flex items-center text-xl md:text-3xl text-green-400 font-bold">
           <span className="mr-3 text-slate-500 select-none">&gt;</span>

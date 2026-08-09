@@ -12,14 +12,16 @@ export default function CommandPalette() {
   const inputRef = useRef(null);
   const bottomRef = useRef(null);
 
-  // Define files vs directories explicitly with types
+  // File system map distinguishing files (sections/pages) from directories (folders)
   const fileSystem = {
     '~': [
       { name: 'about', type: 'file' },
       { name: 'tech-stack', type: 'file' },
-      { name: 'experience', type: 'dir' },
-      { name: 'projects', type: 'dir' },
-      { name: 'resume', type: 'file' }
+      { name: 'experience', type: 'file' },
+      { name: 'projects', type: 'file' },
+      { name: 'resume', type: 'file' },
+      { name: 'experience/', type: 'dir' },
+      { name: 'projects/', type: 'dir' }
     ],
     '~/experience': [
       { name: 'rewild-ai', type: 'file' },
@@ -34,9 +36,9 @@ export default function CommandPalette() {
   };
 
   const initialHistory = [
-    { type: 'output', text: 'Welcome to the Portfolio Terminal v1.2.0' },
-    { type: 'output', text: '💡 Tip: Directories end with "/" (e.g. experience/). Use "cd <dir>" or type the section name directly.' },
-    { type: 'output', text: 'Type "ls" to list contents.' },
+    { type: 'output', text: 'Welcome to the Portfolio Terminal v1.3.0' },
+    { type: 'output', text: 'Type "ls" or "dir" to list contents. Blue items ending with "/" are folders (use "cd"). White items are files/sections.' },
+    { type: 'output', text: 'Tip: Type "help" or use [TAB] to auto-complete directory paths/files.' },
   ];
   
   const [history, setHistory] = useState(initialHistory);
@@ -82,9 +84,9 @@ export default function CommandPalette() {
         newOutput = [
           'Available commands:',
           '  help           - Show this message',
-          '  ls / dir       - List directory contents (Blue = Folders, White = Files)',
-          '  cd <dir>       - Change directory (e.g., "cd experience")',
-          '  <name>         - Directly open a file or section',
+          '  ls / dir       - List directory contents (Cyan = Folders, White = Files)',
+          '  cd <dir>       - Change directory into a folder (e.g., "cd experience/")',
+          '  <file>         - Open a file or section (e.g., "experience" scrolls to section)',
           '  clear          - Clear terminal output',
           '  exit           - Close the terminal'
         ];
@@ -93,7 +95,6 @@ export default function CommandPalette() {
       case 'ls':
       case 'dir':
         const items = fileSystem[currentDir] || [];
-        // Custom formatting rendering directories with trailing slash and distinct colors
         customRenderNodes = (
           <div className="flex flex-wrap gap-x-6 gap-y-1">
             {items.map((item, idx) => (
@@ -101,7 +102,7 @@ export default function CommandPalette() {
                 key={idx} 
                 className={item.type === 'dir' ? 'text-cyan-400 font-bold' : 'text-slate-100'}
               >
-                {item.name}{item.type === 'dir' ? '/' : ''}
+                {item.name}
               </span>
             ))}
           </div>
@@ -118,16 +119,18 @@ export default function CommandPalette() {
             setCurrentDir(parent || '~');
           }
         } else {
-          const possibleDir = `${currentDir}/${target}`;
-          const cleanTarget = target.replace('/', '');
-          const matchingItem = fileSystem[currentDir]?.find(i => i.name === cleanTarget);
+          // Normalize target by adding or cleaning trailing slash
+          const cleanTarget = target.endsWith('/') ? target : `${target}/`;
+          const possibleDirName = `~/${cleanTarget.replace('/', '')}`;
+          const currentItems = fileSystem[currentDir] || [];
+          const foundDir = currentItems.find(i => i.name === cleanTarget && i.type === 'dir');
 
-          if (fileSystem[possibleDir]) {
-            setCurrentDir(possibleDir);
-          } else if (matchingItem?.type === 'dir') {
-            setCurrentDir(`${currentDir}/${cleanTarget}`);
+          if (fileSystem[possibleDirName]) {
+            setCurrentDir(possibleDirName);
+          } else if (foundDir) {
+            setCurrentDir(`${currentDir}/${cleanTarget.replace('/', '')}`);
           } else {
-            newOutput = [`cd: ${target}: No such directory`];
+            newOutput = [`cd: ${target}: No such directory or not a folder`];
           }
         }
         break;
@@ -144,44 +147,32 @@ export default function CommandPalette() {
         break;
 
       default:
-        // Shortcut handling: allows typing section names directly (e.g., "experience", "about", "rewild-ai")
-        const cleanCmd = command.replace('/', '');
+        // Handle file execution/opening explicitly
         const currentItems = fileSystem[currentDir] || [];
-        const foundItem = currentItems.find(i => i.name === cleanCmd);
+        const foundFile = currentItems.find(i => i.name === command && i.type === 'file');
 
-        if (foundItem) {
-          if (foundItem.type === 'dir') {
-            // If it's a directory like 'experience' or 'projects', change directory or scroll to section
+        if (foundFile) {
+          newOutput = [`Opening ${command}...`];
+          setTimeout(() => {
+            setIsOpen(false);
             if (currentDir === '~') {
-              newOutput = [`Jumping to section ${cleanCmd}...`];
+              navigate('/');
               setTimeout(() => {
-                setIsOpen(false);
-                navigate('/');
-                setTimeout(() => {
-                  document.getElementById(cleanCmd)?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }, 300);
+                document.getElementById(command)?.scrollIntoView({ behavior: 'smooth' });
+              }, 100);
             } else {
-              setCurrentDir(`${currentDir}/${cleanCmd}`);
+              const routePath = currentDir.replace('~', '') + '/' + command;
+              navigate(routePath);
             }
-          } else {
-            // It's a file, open/navigate to it
-            newOutput = [`Opening ${cleanCmd}...`];
-            setTimeout(() => {
-              setIsOpen(false);
-              if (currentDir === '~') {
-                navigate('/');
-                setTimeout(() => {
-                  document.getElementById(cleanCmd)?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              } else {
-                const routePath = currentDir.replace('~', '') + '/' + cleanCmd;
-                navigate(routePath);
-              }
-            }, 300);
-          }
+          }, 300);
         } else {
-          newOutput = [`Command not found: ${command}. Type "help" for instructions.`];
+          // Check if user accidentally tried to cd without typing cd
+          const foundDir = currentItems.find(i => i.name === `${command}/` && i.type === 'dir');
+          if (foundDir) {
+            newOutput = [`Please use "cd ${command}/" to open this folder.`];
+          } else {
+            newOutput = [`Command not found: ${command}. Type "help" for instructions.`];
+          }
         }
     }
 
@@ -209,12 +200,12 @@ export default function CommandPalette() {
       const matches = available.filter((item) => item.name.startsWith(target.toLowerCase()));
       
       if (matches.length === 1) {
-        setInput(`${cmd === 'cd' ? 'cd' : cmd} ${matches[0].name}${matches[0].type === 'dir' ? '/' : ''}`);
+        setInput(`${cmd === 'cd' ? 'cd' : cmd} ${matches[0].name}`);
       } else if (matches.length > 1) {
         setHistory((prev) => [
           ...prev,
           { type: 'input', text: `visitor@portfolio:${currentDir}$ ${input}` },
-          { type: 'output', text: matches.map(m => `${m.name}${m.type === 'dir' ? '/' : ''}`).join('   ') }
+          { type: 'output', text: matches.map(m => m.name).join('   ') }
         ]);
       }
     }
