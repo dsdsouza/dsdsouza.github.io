@@ -11,13 +11,13 @@ export default function Navbar() {
         <a href="https://www.linkedin.com/in/danielsdsouza/" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
           <FaLinkedin className="text-lg" /> LinkedIn
         </a>
-        <a href="mailto:daniel@example.com" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
+        <a href="mailto:danielsethdsouza@gmail.com" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
           <FaEnvelope className="text-lg" /> Email
         </a>
       </div>
       <div className="flex items-center space-x-6">
         <a href="#projects" className="text-slate-700 hover:text-black font-medium text-sm">Projects</a>
-        <a href="/DanielDSouzaResume.pdf" target="_blank" rel="noreferrer" className="bg-black text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-800 transition">
+        <a href="/Daniel-DSouza-Resume.pdf" target="_blank" rel="noreferrer" className="bg-black text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-800 transition">
           Resume
         </a>
       </div>
