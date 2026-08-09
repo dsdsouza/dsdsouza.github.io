@@ -5,14 +5,14 @@ export default function About() {
     <section id="about" className="max-w-4xl mx-auto px-6 py-20">
       <h2 className="text-3xl font-bold mb-10 text-slate-900 border-b pb-2">About Me</h2>
       <div className="grid md:grid-cols-2 gap-10 items-center">
-        {/* Profile Image */}
-        <div className="w-full h-80 rounded-xl overflow-hidden border border-slate-200 shadow-sm bg-slate-100">
-          <img 
-            src="/assets/danielarm1.jpg" 
-            alt="Daniel D'Souza" 
-            className="w-full h-full object-cover object-top"
+        {/* Profile Image Wrapper */}
+        <div className="flex justify-center w-full">
+        <img 
+           src="/assets/danielarm1.jpg" 
+           alt="Daniel D'Souza" 
+            className="h-96 w-auto max-w-full rounded-xl border border-slate-200 shadow-sm object-contain" 
           />
-        </div>
+          </div>
         {/* Blurb Text */}
         <div>
           <p className="text-slate-700 leading-relaxed text-lg">
