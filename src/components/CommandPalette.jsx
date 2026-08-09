@@ -5,6 +5,7 @@ export default function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [currentDir, setCurrentDir] = useState('~');
+  const [isMaximized, setIsMaximized] = useState(false);
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,13 +20,14 @@ export default function CommandPalette() {
   };
 
   const initialHistory = [
-    { type: 'output', text: 'Welcome to the Portfolio Terminal v1.0.0' },
-    { type: 'output', text: 'Type "help" to see available commands.' },
+    { type: 'output', text: 'Welcome to the Portfolio Terminal v1.1.0' },
+    { type: 'output', text: '💡 Tip: Type "help" or use [TAB] to auto-complete directory paths/files.' },
+    { type: 'output', text: 'Type "ls" to see available files or sections in your current directory.' },
   ];
   
   const [history, setHistory] = useState(initialHistory);
 
-  // Toggle Palette with Ctrl+K
+  // Global Keydown Listener for Ctrl+K (Windows/Linux) and Cmd+K (Mac) on any page
   useEffect(() => {
     const handleGlobalKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -39,7 +41,7 @@ export default function CommandPalette() {
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, [isOpen]);
 
-  // Keep input focused and scroll to bottom
+  // Keep input focused and scroll to bottom when opened or updated
   useEffect(() => {
     if (isOpen) {
       inputRef.current?.focus();
@@ -58,11 +60,12 @@ export default function CommandPalette() {
       case 'help':
         newOutput = [
           'Available commands:',
-          '  help     - Show this message',
-          '  ls / dir - List directory contents',
-          '  cd <dir> - Change directory or navigate to a page',
-          '  clear    - Clear terminal output',
-          '  exit     - Close the terminal'
+          '  help           - Show this message',
+          '  ls / dir       - List directory contents',
+          '  cd <dir>       - Change directory (e.g., "cd experience")',
+          '  tab [key]      - Press TAB to auto-complete file names',
+          '  clear          - Clear terminal output',
+          '  exit           - Close the terminal'
         ];
         break;
 
@@ -75,7 +78,6 @@ export default function CommandPalette() {
       case 'cd':
         if (!target || target === '~') {
           setCurrentDir('~');
-          // If returning to root, go to home page
           if (location.pathname !== '/') navigate('/');
         } else if (target === '..') {
           if (currentDir !== '~') {
@@ -83,30 +85,24 @@ export default function CommandPalette() {
             setCurrentDir(parent || '~');
           }
         } else {
-          // Check if target is a subdirectory in current path
           const possibleDir = `${currentDir}/${target}`;
           if (fileSystem[possibleDir]) {
             setCurrentDir(possibleDir);
-          } 
-          // Check if it's a file/section in current directory
-          else if (fileSystem[currentDir]?.includes(target)) {
+          } else if (fileSystem[currentDir]?.includes(target)) {
             newOutput = [`Navigating to ${target}...`];
             
             setTimeout(() => {
               setIsOpen(false);
-              // Routing Logic
               if (currentDir === '~') {
-                // It's a homepage section
                 navigate('/');
                 setTimeout(() => {
                   document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
                 }, 100);
               } else {
-                // It's a nested page route (e.g., ~/experience/rewild-ai)
                 const routePath = currentDir.replace('~', '') + '/' + target;
                 navigate(routePath);
               }
-            }, 500);
+            }, 400);
           } else {
             newOutput = [`cd: ${target}: No such file or directory`];
           }
@@ -115,14 +111,14 @@ export default function CommandPalette() {
 
       case 'clear':
         setHistory([]);
-        return; // Skip adding the command to history
+        return;
 
       case 'exit':
         setIsOpen(false);
         return;
 
       case '':
-        break; // Empty enter press
+        break;
 
       default:
         newOutput = [`Command not found: ${command}. Type "help" for a list of commands.`];
@@ -140,28 +136,23 @@ export default function CommandPalette() {
       handleCommand(input);
       setInput('');
     } else if (e.key === 'Tab') {
-      e.preventDefault(); // Prevent moving focus
+      e.preventDefault(); // Prevent standard tab shifting
       
       const args = input.trim().split(' ');
-      const cmd = args[0];
+      const cmd = args[0] || 'cd';
       const target = args[1] || '';
 
-      if (cmd === 'cd' || cmd === 'ls') {
-        const available = fileSystem[currentDir] || [];
-        // Find matching files/directories
-        const matches = available.filter((item) => item.startsWith(target.toLowerCase()));
-        
-        if (matches.length === 1) {
-          // Auto-complete if there's exactly one match
-          setInput(`${cmd} ${matches[0]}`);
-        } else if (matches.length > 1) {
-          // Show possibilities if multiple matches exist
-          setHistory((prev) => [
-            ...prev,
-            { type: 'input', text: `visitor@portfolio:${currentDir}$ ${input}` },
-            { type: 'output', text: matches.join('   ') }
-          ]);
-        }
+      const available = fileSystem[currentDir] || [];
+      const matches = available.filter((item) => item.startsWith(target.toLowerCase()));
+      
+      if (matches.length === 1) {
+        setInput(`${cmd === 'cd' ? 'cd' : cmd} ${matches[0]}`);
+      } else if (matches.length > 1) {
+        setHistory((prev) => [
+          ...prev,
+          { type: 'input', text: `visitor@portfolio:${currentDir}$ ${input}` },
+          { type: 'output', text: matches.join('   ') }
+        ]);
       }
     }
   };
@@ -171,30 +162,59 @@ export default function CommandPalette() {
   return (
     <div 
       className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-      onClick={() => setIsOpen(false)} // Close on outside click
+      onClick={() => setIsOpen(false)}
     >
       <div 
-        className="bg-slate-900 rounded-xl shadow-2xl border border-slate-700 w-full max-w-2xl h-[450px] flex flex-col overflow-hidden font-mono text-sm"
+        className={`bg-slate-900 rounded-xl shadow-2xl border border-slate-700 flex flex-col overflow-hidden font-mono text-sm transition-all duration-200 ${
+          isMaximized 
+            ? 'w-full h-full max-w-none max-h-none m-0 rounded-none' 
+            : 'w-full max-w-2xl h-[480px]'
+        }`}
         onClick={(e) => {
-          e.stopPropagation(); // Prevent closing when clicking inside
+          e.stopPropagation();
           inputRef.current?.focus();
         }}
       >
-        {/* Terminal Header */}
-        <div className="bg-slate-800 px-4 py-2 border-b border-slate-700 flex items-center justify-between select-none">
-          <div className="flex gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+        {/* Terminal Header with Functional Window Buttons */}
+        <div className="bg-slate-800 px-4 py-2.5 border-b border-slate-700 flex items-center justify-between select-none">
+          <div className="flex items-center gap-2">
+            {/* Red Button: Close */}
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="w-3.5 h-3.5 rounded-full bg-red-500 hover:bg-red-600 transition flex items-center justify-center group focus:outline-none"
+              title="Close"
+            >
+              <span className="text-[9px] text-red-950 opacity-0 group-hover:opacity-100 font-bold leading-none">×</span>
+            </button>
+            {/* Yellow Button: Minimize / Hide */}
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="w-3.5 h-3.5 rounded-full bg-yellow-500 hover:bg-yellow-600 transition flex items-center justify-center group focus:outline-none"
+              title="Minimize"
+            >
+              <span className="text-[9px] text-yellow-950 opacity-0 group-hover:opacity-100 font-bold leading-none">-</span>
+            </button>
+            {/* Green Button: Maximize / Restore */}
+            <button 
+              onClick={() => setIsMaximized(!isMaximized)}
+              className="w-3.5 h-3.5 rounded-full bg-green-500 hover:bg-green-600 transition flex items-center justify-center group focus:outline-none"
+              title={isMaximized ? "Restore" : "Maximize"}
+            >
+              <span className="text-[9px] text-green-950 opacity-0 group-hover:opacity-100 font-bold leading-none">+</span>
+            </button>
           </div>
-          <span className="text-slate-400 text-xs">visitor@portfolio ~ bash</span>
-          <div className="w-10"></div> {/* Spacer for centering */}
+          
+          <span className="text-slate-400 text-xs">visitor@portfolio : {currentDir}</span>
+          
+          <div className="text-xs text-slate-500 font-sans hidden sm:block">
+            Press <kbd className="bg-slate-700 px-1.5 py-0.5 rounded text-slate-300">ESC</kbd> to exit
+          </div>
         </div>
 
         {/* Terminal Body */}
-        <div className="flex-1 p-4 overflow-y-auto text-slate-300 space-y-1">
+        <div className="flex-1 p-4 overflow-y-auto text-slate-300 space-y-1.5">
           {history.map((line, i) => (
-            <div key={i} className={`${line.type === 'input' ? 'text-green-400' : 'text-slate-300'}`}>
+            <div key={i} className={`${line.type === 'input' ? 'text-green-400' : 'text-slate-300'} whitespace-pre-wrap`}>
               {line.text}
             </div>
           ))}
