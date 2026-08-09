@@ -21,21 +21,21 @@ export default function Designatronics() {
           </div>
           <div>
             <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 block mb-1">
-              Designatronics[cite: 1]
+              Designatronics
             </span>
-            <h1 className="text-3xl font-bold text-slate-900">MIS (Management of Information Systems) Intern[cite: 1]</h1>
+            <h1 className="text-3xl font-bold text-slate-900">MIS (Management of Information Systems) Intern</h1>
           </div>
         </div>
 
         <p className="text-base font-medium text-slate-500 mb-8 pb-6 border-b border-slate-100">
-          Jun 2025 - Aug 2025 • Hicksville, NY[cite: 1]
+          Jun 2025 - Aug 2025 • Hicksville, NY
         </p>
 
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Overview & Impact</h2>
         <ul className="list-disc list-outside ml-5 space-y-4 text-slate-700 text-base mb-10 leading-relaxed">
-          <li>Executed the full-scale software migration of a legacy enterprise engineering tool using C#, PHP, Java, JavaScript, HTML, and CSS to comply with Department of Defense (DOD) cybersecurity mandates.[cite: 1]</li>
-          <li>Reverse-engineered and redeployed internal infrastructure hosted on outdated servers, utilizing Microsoft IIS, MySQL, and PowerShell across Windows and Linux network environments.[cite: 1]</li>
-          <li>Standardized local hardware deployment, resolved network printer configurations, and managed system administration utilities using Active Directory Tools and Linux.[cite: 1]</li>
+          <li>Executed the full-scale software migration of a legacy enterprise engineering tool using C#, PHP, Java, JavaScript, HTML, and CSS to comply with Department of Defense (DOD) cybersecurity mandates.</li>
+          <li>Reverse-engineered and redeployed internal infrastructure hosted on outdated servers, utilizing Microsoft IIS, MySQL, and PowerShell across Windows and Linux network environments.</li>
+          <li>Standardized local hardware deployment, resolved network printer configurations, and managed system administration utilities using Active Directory Tools and Linux.</li>
         </ul>
 
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-3">Technologies Used</h2>

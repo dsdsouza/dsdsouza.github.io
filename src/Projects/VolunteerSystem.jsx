@@ -22,9 +22,9 @@ export default function VolunteerSystem() {
 
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Project Architecture</h2>
         <ul className="list-disc list-outside ml-5 space-y-4 text-slate-700 text-base mb-10 leading-relaxed">
-          <li>Led a small development team to build a secure volunteer management platform using Node.js, TypeScript, JavaScript, HTML, CSS, and Python with JWT authentication, for orchestrating community-driven environmental action.[cite: 1]</li>
-          <li>Orchestrated frontend deployment to Vercel and backend migration from Cloudflare to Google Cloud Platform connected via RESTful APIs.[cite: 1]</li>
-          <li>Automated backend administrative workflows using PowerShell, Git, and PostgreSQL to streamline scheduling, location tracking, and user profile management.[cite: 1]</li>
+          <li>Led a small development team to build a secure volunteer management platform using Node.js, TypeScript, JavaScript, HTML, CSS, and Python with JWT authentication, for orchestrating community-driven environmental action.</li>
+          <li>Orchestrated frontend deployment to Vercel and backend migration from Cloudflare to Google Cloud Platform connected via RESTful APIs.</li>
+          <li>Automated backend administrative workflows using PowerShell, Git, and PostgreSQL to streamline scheduling, location tracking, and user profile management.</li>
         </ul>
 
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-3">Tech Stack</h2>

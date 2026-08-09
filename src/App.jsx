@@ -13,19 +13,19 @@ import CommandPalette from './components/CommandPalette';
 
 // Detailed Experience Pages
 import ReWildAI from './Experience/ReWildAI';
-// import ReWildVolunteer from './Experience/ReWildVolunteer';
-// import Designatronics from './Experience/Designatronics';
-// import RTX from './Experience/RTX';
+import ReWildVolunteer from './Experience/ReWildVolunteer';
+import Designatronics from './Experience/Designatronics';
+import RTX from './Experience/RTX';
 
 // Detailed Project Pages
 import LandcareHub from './Projects/LandcareHub';
-// import VolunteerSystem from './Projects/VolunteerSystem';
+import VolunteerSystem from './Projects/VolunteerSystem';
 
 export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans selection:bg-slate-900 selection:text-white">
       <Navbar />
-      
+
       {/* The Routes component handles switching pages */}
       <Routes>
         {/* The Main Portfolio Page */}
@@ -43,13 +43,13 @@ export default function App() {
 
         {/* The Detailed Experience Pages */}
         <Route path="/experience/rewild-ai" element={<ReWildAI />} />
-        {/* <Route path="/experience/rewild-volunteer" element={<ReWildVolunteer />} /> */}
-        {/* <Route path="/experience/designatronics" element={<Designatronics />} /> */}
-        {/* <Route path="/experience/rtx" element={<RTX />} /> */}
+        <Route path="/experience/rewild-volunteer" element={<ReWildVolunteer />} />
+        <Route path="/experience/designatronics" element={<Designatronics />} />
+        <Route path="/experience/rtx" element={<RTX />} />
 
         {/* The Detailed Project Pages */}
         <Route path="/projects/landcare-hub" element={<LandcareHub />} />
-        {/* <Route path="/projects/volunteer-management" element={<VolunteerSystem />} /> */}
+        <Route path="/projects/volunteer-management" element={<VolunteerSystem />} />
       </Routes>
 
       <footer className="border-t border-slate-200 py-8 text-center text-sm text-slate-500">

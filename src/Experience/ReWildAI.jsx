@@ -23,19 +23,19 @@ export default function ReWildAI() {
             <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 block mb-1">
               ReWild Long Island Incorporated
             </span>
-            <h1 className="text-3xl font-bold text-slate-900">Software Development Intern (AI Team)[cite: 1]</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Software Development Intern (AI Team)</h1>
           </div>
         </div>
 
         <p className="text-base font-medium text-slate-500 mb-8 pb-6 border-b border-slate-100">
-          Aug 2026 - Present • Remote[cite: 1]
+          Aug 2026 - Present • Remote
         </p>
 
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Overview & Impact</h2>
         <ul className="list-disc list-outside ml-5 space-y-4 text-slate-700 text-base mb-10 leading-relaxed">
-          <li>Architecting a multi-lingual, conversational Al platform using Python, TypeScript, JavaScript, HTML, and CSS to deliver localized native plant guidance and drive community ecological action.[cite: 1]</li>
-          <li>Scaled backend engine capabilities by deploying containerized microservices via Docker on Google Cloud Platform and constructing RESTful APIs for cross-platform data delivery.[cite: 1]</li>
-          <li>Engineered production-ready database schemas in PostgreSQL and managed codebase versioning with Git to facilitate API integration across partner non-profit networks.[cite: 1]</li>
+          <li>Architecting a multi-lingual, conversational Al platform using Python, TypeScript, JavaScript, HTML, and CSS to deliver localized native plant guidance and drive community ecological action.</li>
+          <li>Scaled backend engine capabilities by deploying containerized microservices via Docker on Google Cloud Platform and constructing RESTful APIs for cross-platform data delivery.</li>
+          <li>Engineered production-ready database schemas in PostgreSQL and managed codebase versioning with Git to facilitate API integration across partner non-profit networks.</li>
         </ul>
 
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-3">Technologies Used</h2>
