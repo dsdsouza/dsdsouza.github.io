@@ -12,21 +12,35 @@ export default function CommandPalette() {
   const inputRef = useRef(null);
   const bottomRef = useRef(null);
 
+  // Define files vs directories explicitly with types
   const fileSystem = {
-    '~': ['about', 'tech-stack', 'experience', 'projects', 'resume'],
-    '~/experience': ['rewild-ai', 'rewild-volunteer', 'designatronics', 'rtx'],
-    '~/projects': ['landcare-hub', 'volunteer-system']
+    '~': [
+      { name: 'about', type: 'file' },
+      { name: 'tech-stack', type: 'file' },
+      { name: 'experience', type: 'dir' },
+      { name: 'projects', type: 'dir' },
+      { name: 'resume', type: 'file' }
+    ],
+    '~/experience': [
+      { name: 'rewild-ai', type: 'file' },
+      { name: 'rewild-volunteer', type: 'file' },
+      { name: 'designatronics', type: 'file' },
+      { name: 'rtx', type: 'file' }
+    ],
+    '~/projects': [
+      { name: 'landcare-hub', type: 'file' },
+      { name: 'volunteer-system', type: 'file' }
+    ]
   };
 
   const initialHistory = [
-    { type: 'output', text: 'Welcome to the Portfolio Terminal v1.1.0' },
-    { type: 'output', text: 'Tip: Type "help" or use [TAB] to auto-complete directory paths/files.' },
-    { type: 'output', text: 'Type "ls" to see available files or sections in your current directory.' },
+    { type: 'output', text: 'Welcome to the Portfolio Terminal v1.2.0' },
+    { type: 'output', text: '💡 Tip: Directories end with "/" (e.g. experience/). Use "cd <dir>" or type the section name directly.' },
+    { type: 'output', text: 'Type "ls" to list contents.' },
   ];
   
   const [history, setHistory] = useState(initialHistory);
 
-  // Global Keyboard Listener & Custom Open Event Listener for Mobile Button
   useEffect(() => {
     const handleGlobalKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -61,14 +75,16 @@ export default function CommandPalette() {
     const target = args[1]?.toLowerCase();
 
     let newOutput = [];
+    let customRenderNodes = null;
 
     switch (command) {
       case 'help':
         newOutput = [
           'Available commands:',
           '  help           - Show this message',
-          '  ls / dir       - List directory contents',
+          '  ls / dir       - List directory contents (Blue = Folders, White = Files)',
           '  cd <dir>       - Change directory (e.g., "cd experience")',
+          '  <name>         - Directly open a file or section',
           '  clear          - Clear terminal output',
           '  exit           - Close the terminal'
         ];
@@ -76,8 +92,20 @@ export default function CommandPalette() {
 
       case 'ls':
       case 'dir':
-        const contents = fileSystem[currentDir] || [];
-        newOutput = [contents.join('   ')];
+        const items = fileSystem[currentDir] || [];
+        // Custom formatting rendering directories with trailing slash and distinct colors
+        customRenderNodes = (
+          <div className="flex flex-wrap gap-x-6 gap-y-1">
+            {items.map((item, idx) => (
+              <span 
+                key={idx} 
+                className={item.type === 'dir' ? 'text-cyan-400 font-bold' : 'text-slate-100'}
+              >
+                {item.name}{item.type === 'dir' ? '/' : ''}
+              </span>
+            ))}
+          </div>
+        );
         break;
 
       case 'cd':
@@ -91,25 +119,15 @@ export default function CommandPalette() {
           }
         } else {
           const possibleDir = `${currentDir}/${target}`;
+          const cleanTarget = target.replace('/', '');
+          const matchingItem = fileSystem[currentDir]?.find(i => i.name === cleanTarget);
+
           if (fileSystem[possibleDir]) {
             setCurrentDir(possibleDir);
-          } else if (fileSystem[currentDir]?.includes(target)) {
-            newOutput = [`Navigating to ${target}...`];
-            
-            setTimeout(() => {
-              setIsOpen(false);
-              if (currentDir === '~') {
-                navigate('/');
-                setTimeout(() => {
-                  document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              } else {
-                const routePath = currentDir.replace('~', '') + '/' + target;
-                navigate(routePath);
-              }
-            }, 400);
+          } else if (matchingItem?.type === 'dir') {
+            setCurrentDir(`${currentDir}/${cleanTarget}`);
           } else {
-            newOutput = [`cd: ${target}: No such file or directory`];
+            newOutput = [`cd: ${target}: No such directory`];
           }
         }
         break;
@@ -126,13 +144,53 @@ export default function CommandPalette() {
         break;
 
       default:
-        newOutput = [`Command not found: ${command}. Type "help" for a list of commands.`];
+        // Shortcut handling: allows typing section names directly (e.g., "experience", "about", "rewild-ai")
+        const cleanCmd = command.replace('/', '');
+        const currentItems = fileSystem[currentDir] || [];
+        const foundItem = currentItems.find(i => i.name === cleanCmd);
+
+        if (foundItem) {
+          if (foundItem.type === 'dir') {
+            // If it's a directory like 'experience' or 'projects', change directory or scroll to section
+            if (currentDir === '~') {
+              newOutput = [`Jumping to section ${cleanCmd}...`];
+              setTimeout(() => {
+                setIsOpen(false);
+                navigate('/');
+                setTimeout(() => {
+                  document.getElementById(cleanCmd)?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }, 300);
+            } else {
+              setCurrentDir(`${currentDir}/${cleanCmd}`);
+            }
+          } else {
+            // It's a file, open/navigate to it
+            newOutput = [`Opening ${cleanCmd}...`];
+            setTimeout(() => {
+              setIsOpen(false);
+              if (currentDir === '~') {
+                navigate('/');
+                setTimeout(() => {
+                  document.getElementById(cleanCmd)?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              } else {
+                const routePath = currentDir.replace('~', '') + '/' + cleanCmd;
+                navigate(routePath);
+              }
+            }, 300);
+          }
+        } else {
+          newOutput = [`Command not found: ${command}. Type "help" for instructions.`];
+        }
     }
 
     setHistory((prev) => [
       ...prev,
       { type: 'input', text: `visitor@portfolio:${currentDir}$ ${cmdStr}` },
-      ...newOutput.map((text) => ({ type: 'output', text }))
+      customRenderNodes 
+        ? { type: 'custom', node: customRenderNodes }
+        : { type: 'output', text: newOutput.join('\n') }
     ]);
   };
 
@@ -148,15 +206,15 @@ export default function CommandPalette() {
       const target = args[1] || '';
 
       const available = fileSystem[currentDir] || [];
-      const matches = available.filter((item) => item.startsWith(target.toLowerCase()));
+      const matches = available.filter((item) => item.name.startsWith(target.toLowerCase()));
       
       if (matches.length === 1) {
-        setInput(`${cmd === 'cd' ? 'cd' : cmd} ${matches[0]}`);
+        setInput(`${cmd === 'cd' ? 'cd' : cmd} ${matches[0].name}${matches[0].type === 'dir' ? '/' : ''}`);
       } else if (matches.length > 1) {
         setHistory((prev) => [
           ...prev,
           { type: 'input', text: `visitor@portfolio:${currentDir}$ ${input}` },
-          { type: 'output', text: matches.join('   ') }
+          { type: 'output', text: matches.map(m => `${m.name}${m.type === 'dir' ? '/' : ''}`).join('   ') }
         ]);
       }
     }
@@ -216,8 +274,14 @@ export default function CommandPalette() {
         {/* Terminal Body */}
         <div className="flex-1 p-4 overflow-y-auto text-slate-300 space-y-1.5">
           {history.map((line, i) => (
-            <div key={i} className={`${line.type === 'input' ? 'text-green-400' : 'text-slate-300'} whitespace-pre-wrap`}>
-              {line.text}
+            <div key={i} className="whitespace-pre-wrap">
+              {line.type === 'input' ? (
+                <span className="text-green-400">{line.text}</span>
+              ) : line.type === 'custom' ? (
+                line.node
+              ) : (
+                <span className="text-slate-300">{line.text}</span>
+              )}
             </div>
           ))}
           
