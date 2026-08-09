@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Projects() {
   const sampleProjects = [
@@ -25,12 +26,10 @@ export default function Projects() {
         {sampleProjects.map((project, index) => (
           <div key={index} className="bg-white border-2 border-slate-900 rounded-xl flex flex-col justify-between hover-lift transition">
             
-            {/* Wrap the card content in an anchor tag to open in a new tab */}
-            <a 
-              href={project.link} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="block p-6 w-full h-full flex flex-col justify-between"
+            {/* Wrap the card content in a Link component to navigate within the app */}
+            <Link 
+              to={project.link} 
+              className="block p-6 w-full h-full flex flex-col justify-between" 
             >
               <div>
                 <div className="w-full h-44 bg-slate-100 border border-slate-300 rounded-lg mb-4 flex items-center justify-center text-slate-400 font-mono text-sm">
@@ -47,7 +46,7 @@ export default function Projects() {
                   </span>
                 ))}
               </div>
-            </a>
+            </Link>
             
           </div>
         ))}

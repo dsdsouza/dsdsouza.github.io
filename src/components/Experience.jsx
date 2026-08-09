@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Experience() {
   const experiences = [
@@ -52,12 +53,9 @@ export default function Experience() {
           <div key={index} className="relative bg-white rounded-xl border border-slate-200 shadow-sm hover-lift transition">
             <span className="absolute -left-[31px] top-6 w-4 h-4 rounded-full bg-slate-400 border-4 border-white"></span>
             
-            {/* Wrap the card content in an anchor tag to open in a new tab */}
-            <a 
-              href={exp.link} 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <Link 
               className="block p-6 w-full h-full"
+              to={exp.link}
             >
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 flex-shrink-0 bg-slate-50 border border-slate-200 rounded-lg p-1 flex items-center justify-center overflow-hidden">
@@ -89,7 +87,7 @@ export default function Experience() {
                   </span>
                 ))}
               </div>
-            </a>
+            </Link>
           </div>
         ))}
       </div>
