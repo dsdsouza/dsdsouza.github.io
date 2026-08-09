@@ -10,6 +10,7 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Resume from './components/Resume';
 import CommandPalette from './components/CommandPalette';
+import NotFound from './components/NotFound';
 
 // Detailed Experience Pages
 import ReWildAI from './Experience/ReWildAI';
@@ -53,6 +54,7 @@ export default function App() {
         {/* The Detailed Project Pages */}
         <Route path="/projects/landcare-hub" element={<LandcareHub />} />
         <Route path="/projects/volunteer-management" element={<VolunteerSystem />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <footer className="border-t border-slate-200 py-8 text-center text-sm text-slate-500">
