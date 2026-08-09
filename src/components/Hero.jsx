@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaFileAlt } from 'react-icons/fa';
 
 export default function Hero() {
   return (
@@ -9,12 +10,25 @@ export default function Hero() {
       <p className="text-xl md:text-2xl text-slate-600 mb-8">
         Computer Science Honors Student & Full-Stack Developer
       </p>
-      <div className="inline-flex items-center bg-slate-100 border border-slate-300 px-4 py-2 rounded-lg text-sm text-slate-700 shadow-sm">
-        <span>Press</span>
-        <kbd className="bg-white border border-slate-300 px-2 py-0.5 rounded mx-1.5 font-mono text-xs shadow-inner">Ctrl</kbd>
-        <span>+</span>
-        <kbd className="bg-white border border-slate-300 px-2 py-0.5 rounded mx-1.5 font-mono text-xs shadow-inner">K</kbd>
-        <span>to jump anywhere</span>
+
+      {/* Action Row: Ctrl+K badge & Resume CTA */}
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        <div className="inline-flex items-center bg-slate-100 border border-slate-300 px-4 py-2 rounded-lg text-sm text-slate-700 shadow-sm">
+          <span>Press</span>
+          <kbd className="bg-white border border-slate-300 px-2 py-0.5 rounded mx-1.5 font-mono text-xs shadow-inner">Ctrl</kbd>
+          <span>+</span>
+          <kbd className="bg-white border border-slate-300 px-2 py-0.5 rounded mx-1.5 font-mono text-xs shadow-inner">K</kbd>
+          <span>to jump anywhere</span>
+        </div>
+
+        <a 
+          href="/Daniel-DSouza-Resume.pdf" 
+          target="_blank" 
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 bg-slate-900 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition shadow-sm"
+        >
+          <FaFileAlt className="text-xs" /> Resume
+        </a>
       </div>
     </section>
   );
