@@ -10,7 +10,7 @@ export default function About() {
           <img 
             src="/assets/danielarm1.jpg" 
             alt="Daniel D'Souza" 
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-top"
           />
         </div>
         {/* Blurb Text */}

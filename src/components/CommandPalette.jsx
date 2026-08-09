@@ -46,6 +46,7 @@ export default function CommandPalette() {
             { name: 'Tech Stack', id: 'tech-stack' },
             { name: 'Experience', id: 'experience' },
             { name: 'Projects', id: 'projects' },
+            { name: 'Resume', id: 'resume' },
           ]
             .filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
             .map((item) => (
