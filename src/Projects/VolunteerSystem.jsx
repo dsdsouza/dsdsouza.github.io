@@ -16,13 +16,13 @@ export default function VolunteerSystem() {
           Internal Operations & Role-Based Platform
         </p>
 
-        <div className="w-full h-64 bg-slate-100 border border-slate-300 rounded-xl mb-8 flex items-center justify-center text-slate-400 font-mono text-base">
+        {/* <div className="w-full h-64 bg-slate-100 border border-slate-300 rounded-xl mb-8 flex items-center justify-center text-slate-400 font-mono text-base">
           <img 
               src="/assets/VolunteerManagementImage.jpg" 
               alt="Volunteer Management System" 
               className="w-full h-full object-cover rounded-xl"
             />
-        </div>
+        </div> */}
 
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Project Architecture</h2>
         <ul className="list-disc list-outside ml-5 space-y-4 text-slate-700 text-base mb-10 leading-relaxed">

@@ -33,14 +33,17 @@ export default function Projects() {
               to={project.link} 
               className="block p-6 w-full h-full flex flex-col justify-between" 
             >
+              
               <div>
-                <div className="w-full h-44 bg-slate-100 border border-slate-300 rounded-lg mb-4 flex items-center justify-center text-slate-400 font-mono text-sm">
+                
+                {/* <div className="w-full h-44 bg-slate-100 border border-slate-300 rounded-lg mb-4 flex items-center justify-center text-slate-400 font-mono text-sm">
                   <img 
                     src={project.picture} 
                     alt={project.title} 
                     className="w-full h-full object-cover rounded-lg"
                   />
-                </div>
+                </div> */}
+                
                 <h3 className="text-2xl font-bold text-slate-900">{project.title}</h3>
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">{project.subtitle}</p>
                 <p className="text-slate-700 text-sm mb-4">{project.description}</p>
