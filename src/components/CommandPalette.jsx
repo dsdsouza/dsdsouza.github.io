@@ -31,7 +31,7 @@ export default function CommandPalette() {
     ],
     '~/projects': [
       { name: 'landcare-hub', type: 'file' },
-      { name: 'volunteer-system', type: 'file' }
+      { name: 'volunteer-management', type: 'file' }
     ]
   };
 
