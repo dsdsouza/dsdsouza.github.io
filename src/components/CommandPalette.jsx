@@ -201,20 +201,41 @@ export default function CommandPalette() {
     } else if (e.key === 'Tab') {
       e.preventDefault();
       
-      const args = input.trim().split(' ');
-      const cmd = args[0] || 'cd';
+      const args = input.trimStart().split(' ');
+      const cmd = args[0]?.toLowerCase() || '';
       const target = args[1] || '';
 
       const available = fileSystem[currentDir] || [];
-      const matches = available.filter((item) => item.name.startsWith(target.toLowerCase()));
+      let matches = available.filter((item) => item.name.startsWith(target.toLowerCase()));
+      
+      // Filter autocomplete based on whether the command targets folders (cd) or files (open)
+      if (cmd === 'cd') {
+        matches = matches.filter(item => item.type === 'dir');
+      } else if (cmd === 'open') {
+        matches = matches.filter(item => item.type === 'file');
+      }
       
       if (matches.length === 1) {
-        setInput(`${cmd === 'cd' ? 'cd' : cmd} ${matches[0].name}`);
+        setInput(`${cmd} ${matches[0].name}`);
       } else if (matches.length > 1) {
+        // Output styled nodes so directories retain cyan coloring in history
+        const matchNodes = (
+          <div className="flex flex-wrap gap-x-6 gap-y-1">
+            {matches.map((item, idx) => (
+              <span 
+                key={idx} 
+                className={item.type === 'dir' ? 'text-cyan-400 font-bold' : 'text-slate-100'}
+              >
+                {item.name}
+              </span>
+            ))}
+          </div>
+        );
+
         setHistory((prev) => [
           ...prev,
           { type: 'input', text: `visitor@portfolio:${currentDir}$ ${input}` },
-          { type: 'output', text: matches.map(m => m.name).join('   ') }
+          { type: 'custom', node: matchNodes }
         ]);
       }
     }
