@@ -17,7 +17,11 @@ export default function VolunteerSystem() {
         </p>
 
         <div className="w-full h-64 bg-slate-100 border border-slate-300 rounded-xl mb-8 flex items-center justify-center text-slate-400 font-mono text-base">
-          [ Full Screen Project Image / GIF ]
+          <img 
+              src="/assets/VolunteerManagementImage.jpg" 
+              alt="Volunteer Management System" 
+              className="w-full h-full object-cover rounded-xl"
+            />
         </div>
 
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">Project Architecture</h2>
