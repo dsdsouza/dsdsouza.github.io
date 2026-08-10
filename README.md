@@ -40,7 +40,7 @@ src/
 │   ├── Projects.jsx          # Featured software projects overview
 │   ├── Resume.jsx            # Resume download and preview section
 │   ├── TechStack.jsx         # Skills and tools grid
-│   └── TerminalTrigger.jsx   # Global floating CLI access button
+│   └── MobileTerminalTrigger.jsx   # Global floating CLI access button
 ├── Experience/               # Deep-dive pages for specific roles (ReWild, RTX, etc.)
 ├── Projects/                 # Detailed project case study pages
 ├── App.jsx                   # Main layout routing and wrapper configuration
