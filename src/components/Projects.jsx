@@ -6,6 +6,7 @@ export default function Projects() {
     {
       title: "Sustainable Landcare Hub",
       subtitle: "Conversational AI Platform",
+      picture: "/assets/SustainableLandcareHubImage.jpg",
       link: "/projects/landcare-hub",
       description: "Multi-lingual conversational AI platform delivering localized native plant guidance and ecological workflows. Containerized backend microservices using Docker and deployed on Google Cloud Platform with RESTful APIs.",
       tags: ["Python", "TypeScript", "Docker", "GCP", "PostgreSQL", "RESTful APIs", "Git"]
@@ -13,6 +14,7 @@ export default function Projects() {
     {
       title: "Full-Stack Volunteer Management System",
       subtitle: "Role-Based Operations Platform",
+      picture: "/assets/VolunteerManagementImage.jpg",
       link: "/projects/volunteer-management",
       description: "Secure volunteer and intern management platform featuring JWT authentication, automated scheduling via PowerShell scripts, and cross-platform RESTful APIs hosted on Vercel and GCP.",
       tags: ["Node.js", "TypeScript", "JavaScript", "JWT Auth", "Vercel", "GCP", "PostgreSQL", "PowerShell"]
@@ -33,7 +35,11 @@ export default function Projects() {
             >
               <div>
                 <div className="w-full h-44 bg-slate-100 border border-slate-300 rounded-lg mb-4 flex items-center justify-center text-slate-400 font-mono text-sm">
-                  [ Project Image Preview ]
+                  <img 
+                    src={project.picture} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover rounded-lg"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900">{project.title}</h3>
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">{project.subtitle}</p>
