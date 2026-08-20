@@ -23,7 +23,7 @@ export default function ReWildVolunteer() {
             <span className="text-sm font-semibold uppercase tracking-wider text-slate-500 block mb-1">
               ReWild Long Island Incorporated
             </span>
-            <h1 className="text-3xl font-bold text-slate-900">Software Development Intern (Volunteer Team)</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Software Development Intern (Full Stack Web Dev Team)</h1>
           </div>
         </div>
 
