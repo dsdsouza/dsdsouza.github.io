@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaYoutube } from 'react-icons/fa';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 export default function Navbar() {
@@ -34,6 +34,9 @@ export default function Navbar() {
         </a>
         <a href="https://www.linkedin.com/in/danielsdsouza/" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
           <FaLinkedin className="text-lg" /> <span className="hidden sm:inline">LinkedIn</span>
+        </a>
+        <a href="https://www.youtube.com/@Firewallnut" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
+          <FaYoutube className="text-lg" /> <span className="hidden sm:inline">YouTube</span>
         </a>
         <a href="mailto:danielsethdsouza@gmail.com" className="text-slate-700 hover:text-black flex items-center gap-2 font-semibold text-sm">
           <FaEnvelope className="text-lg" /> <span className="hidden sm:inline">Email</span>
