@@ -15,7 +15,7 @@ export default function Experience() {
     },
     {
       company: "REWILD LONG ISLAND INCORPORATED",
-      role: "Software Development Intern (Volunteer Team)",
+      role: "Software Development Intern (Full Stack Web Dev Team)",
       period: "Sep 2025 - Aug 2026",
       location: "Remote",
       logo: "/assets/rewildlogo.webp",
